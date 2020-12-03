@@ -39,9 +39,7 @@ export default class Slider {
     render() {
         try {
             this.hanson = document.querySelector('.hanson')
-        } catch (e) {
-            throw new Error(e)
-        }
+        } catch (e) {}
 
         this.btns.forEach(btn => {
             btn.addEventListener('click', () => {
