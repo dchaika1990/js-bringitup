@@ -39,11 +39,13 @@ export default class MainSlider extends Slider{
                 this.plusSlides(1)
             })
 
-            btn.parentNode.previousElementSibling.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.slideIndex = 1;
-                this.showSlides(this.slideIndex);
-            })
+            if (!btn.parentNode.previousElementSibling.classList.contains('module__info-book')) {
+                btn.parentNode.previousElementSibling.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.slideIndex = 1;
+                    this.showSlides(this.slideIndex);
+                })
+            }
         })
 
         this.bindTriggersPrevNext(this.prev, -1);
