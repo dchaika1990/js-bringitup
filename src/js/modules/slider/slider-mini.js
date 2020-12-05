@@ -1,6 +1,6 @@
 import Slider from "./slider";
 
-export default class MiniSlider extends Slider{
+export default class MiniSlider extends Slider {
     constructor(container, next, prev, activeClass, animate, autoplay) {
         super(container, next, prev, activeClass, animate, autoplay);
     }
@@ -25,11 +25,11 @@ export default class MiniSlider extends Slider{
     }
 
     nextSlide() {
-        if (this.slides[1].tagName === 'BUTTON' && this.slides[2].tagName === 'BUTTON'){
+        if (this.slides[1].tagName === 'BUTTON' && this.slides[2].tagName === 'BUTTON') {
             this.container.appendChild(this.slides[0]); // slide
             this.container.appendChild(this.slides[1]); // btn
             this.container.appendChild(this.slides[2]); // btn
-        } else if(this.slides[1].tagName === 'BUTTON'){
+        } else if (this.slides[1].tagName === 'BUTTON') {
             this.container.appendChild(this.slides[0]); // slide
             this.container.appendChild(this.slides[1]); // btn
         } else {
@@ -39,37 +39,44 @@ export default class MiniSlider extends Slider{
     }
 
     bindTriggers() {
-        this.next.addEventListener('click', () => {
-          this.nextSlide();
+        this.next.forEach(next => {
+            next.addEventListener('click', () => {
+                this.nextSlide();
+            })
         })
-        this.prev.addEventListener('click', () => {
-            for (let i = this.slides.length - 1; i > 0; i--) {
-                if (this.slides[i].tagName !== 'BUTTON') {
-                    let active = this.slides[i];
-                    this.container.insertBefore(active, this.slides[0]);
-                    this.decorizeSlides();
-                    break;
+        this.prev.forEach(prev => {
+            prev.addEventListener('click', () => {
+                for (let i = this.slides.length - 1; i > 0; i--) {
+                    if (this.slides[i].tagName !== 'BUTTON') {
+                        let active = this.slides[i];
+                        this.container.insertBefore(active, this.slides[0]);
+                        this.decorizeSlides();
+                        break;
+                    }
                 }
-            }
-            // let active = this.slides[this.slides.length - 1];
-            // this.container.insertBefore(active, this.slides[0]);
-            // this.decorizeSlides();
+                // let active = this.slides[this.slides.length - 1];
+                // this.container.insertBefore(active, this.slides[0]);
+                // this.decorizeSlides();
+            })
         })
     }
 
-    init(){
-        this.container.style.cssText = `
+    init() {
+        try {
+            this.container.style.cssText = `
             display: flex;
             flex-wrap: wrap;
             overflow: hidden;
             align-items: flex-start; 
         `;
 
-        this.bindTriggers();
-        this.decorizeSlides();
+            this.bindTriggers();
+            this.decorizeSlides();
 
-        if (this.autoplay){
-            setInterval(()=> this.nextSlide(), 5000)
+            if (this.autoplay) {
+                setInterval(() => this.nextSlide(), 5000)
+            }
+        } catch (e) {
         }
     }
 }

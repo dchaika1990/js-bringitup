@@ -1,5 +1,5 @@
 export default class Difference {
-    constructor(oldOfficer, newOfficer, items) {
+    constructor(oldOfficer = null, newOfficer = null, items = null) {
         this.oldOfficer = document.querySelector(oldOfficer);
         this.newOfficer = document.querySelector(newOfficer);
         this.items = items;
@@ -33,7 +33,10 @@ export default class Difference {
     }
 
     init() {
-        this.hideItems(this.oldOfficer, this.newOfficer);
-        this.bindTriggers(this.oldOfficer, this.newOfficer);
+       try {
+           this.hideItems(this.oldOfficer, this.newOfficer);
+           this.bindTriggers(this.oldOfficer, this.newOfficer);
+       } catch (e) {
+       }
     }
 }
